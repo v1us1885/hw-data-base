@@ -39,53 +39,48 @@
 - идентификатор структурного подразделения, внешний ключ, integer).
 
 ### Решение 1
-1. **Таблица "Сотрудники" (Employees):**
+1. **Таблица "Сотрудники" (`Employees`):**
    - `employee_id` (serial, primary key) - уникальный идентификатор сотрудника
    - `full_name` (varchar(50)) - полное имя сотрудника
    - `salary` (numeric) - оклад сотрудника
-   - `position` (varchar(50)) - должность сотрудника
-   - `department_type` (varchar(50)) - тип подразделения, к которому относится сотрудник
-   - `structural_unit_id` (integer, foreign key) - внешний ключ, связывающий сотрудника с определенным структурным подразделением
+   - `position_id` (integer, foreign key) - внешний ключ, связывающий сотрудника с конкретной должностью
+   - `department_type_id` (integer, foreign key) - внешний ключ, связывающий сотрудника с конкретным типом подразделения
+   - `structural_unit_id` (integer, foreign key) - внешний ключ, связывающий сотрудника с конкретным структурным подразделением
    - `hire_date` (date) - дата найма сотрудника
-   - `branch_address` (varchar(100)) - адрес филиала
    - `assigned_project` (varchar(100)) - проект, на который назначен сотрудник
 
-2. **Таблица "Структурные подразделения" (StructuralUnits):**
+2. **Таблица "Структурные подразделения" (`StructuralUnits`):**
    - `structural_unit_id` (serial, primary key) - уникальный идентификатор структурного подразделения
    - `unit_name` (varchar(50)) - название подразделения
-   - `unit_type` (varchar(50)) - тип подразделения
-   - `location` (varchar(100)) - местонахождение подразделения
+   - `unit_type_id` (integer, foreign key) - внешний ключ, связывающий подразделение с конкретным типом подразделения
+   - `address_id` (integer, foreign key) - внешний ключ, связывающий подразделение с конкретным адресом
 
-3. **Таблица "Проекты" (Projects):**
+3. **Таблица "Проекты" (`Projects`):**
    - `project_id` (serial, primary key) - уникальный идентификатор проекта
    - `project_name` (varchar(100)) - название проекта
    - `start_date` (date) - дата начала проекта
    - `end_date` (date) - дата завершения проекта
    - `project_description` (text) - описание проекта
 
-4. **Таблица "Офисы" (Offices):**
-   - `office_id` (serial, primary key) - уникальный идентификатор офиса
-   - `office_name` (varchar(50)) - название офиса
-   - `office_location` (varchar(100)) - местонахождение офиса
-   - `contact_person` (varchar(50)) - ответственное лицо
-   - `contact_phone` (varchar(15)) - контактный телефон
-
-5. **Таблица "Зарплаты" (Salaries):**
+4. **Таблица "Зарплаты" (`Salaries`):**
    - `salary_id` (serial, primary key) - уникальный идентификатор записи о зарплате
    - `employee_id` (integer, foreign key) - внешний ключ, связывающий запись о зарплате с конкретным сотрудником
    - `salary_amount` (numeric) - сумма зарплаты
    - `payment_date` (date) - дата выплаты зарплаты
 
-6. **Таблица "Должности" (Positions):**
+5. **Таблица "Должности" (`Positions`):**
    - `position_id` (serial, primary key) - уникальный идентификатор должности
    - `position_name` (varchar(50)) - название должности
    - `responsibilities` (text) - обязанности, связанные с должностью
    - `required_qualifications` (text) - требования к квалификации для данной должности
 
-7. **Таблица "Контакты" (Contacts):**
-   - `contact_id` (serial, primary key) - уникальный идентификатор контакта
-   - `employee_id` (integer, foreign key) - внешний ключ, связывающий контакт с конкретным сотрудником
-   - `email` (varchar(50)) - адрес электронной почты
-   - `phone_number` (varchar(15)) - номер телефона
+6. **Таблица "Типы подразделений" (`DepartmentTypes`):**
+   - `department_type_id` (serial, primary key) - уникальный идентификатор типа подразделения
+   - `type_name` (varchar(50)) - название типа подразделения
+
+7. **Таблица "Адреса" (`Addresses`):**
+   - `address_id` (serial, primary key) - уникальный идентификатор адреса
+   - `location` (varchar(100)) - местонахождение
+
 
 Такие определения таблиц позволяют явно определить структуру базы данных, а типы данных PostgreSQL, такие как varchar, text, numeric, integer, serial и date, используются для соответствующих столбцов для обеспечения корректного хранения данных.
